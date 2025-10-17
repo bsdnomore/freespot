@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="-1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Бесплатный Wi-Fi</title>
+    <style>
+    :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #3b82f6;
+        --success-color: #10b981;
+        --error-color: #ef4444;
+        --warning-color: #f59e0b;
+        --text-color: #1f2937;
+        --light-text: #f8fafc;
+        --bg-color: #f1f5f9;
+        --card-bg: rgba(255, 255, 255, 0.95);
+        --shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        --border-radius: 20px;
+        --transition: all 0.3s ease;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        line-height: 1.6;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 2.5rem;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: var(--transition);
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .logo-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        color: white;
+        font-size: 1rem;
+    }
+
+    .logo h1 {
+        font-size: 2rem;
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .phone-input-container {
+        display: flex;
+        align-items: center;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        background: white;
+        overflow: hidden;
+        transition: var(--transition);
+    }
+
+    .phone-input-container:focus-within {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .phone-prefix {
+        padding: 1.2rem 0.5rem 1.2rem 1.2rem;
+        background: #f8fafc;
+        color: #64748b;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-right: 1px solid #e2e8f0;
+    }
+
+    .phone-input {
+        border: none;
+        padding: 1.2rem 1.2rem 1.2rem 0.5rem;
+        flex: 1;
+        font-size: 1.1rem;
+        background: white;
+    }
+
+    .phone-input:focus {
+        outline: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-call {
+        background: linear-gradient(135deg, var(--success-color), #059669);
+        color: white;
+        margin-top: 1rem;
+    }
+
+    .btn-call:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .call-info {
+        background: rgba(248, 250, 252, 0.9);
+        padding: 1rem;
+        border-radius: 12px;
+        text-align: center;
+        margin-top: 1rem;
+        border: 2px dashed var(--accent-color);
+    }
+
+    .phone-number {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin: 0.5rem 0;
+        display: block;
+    }
+
+    .loading-spinner {
+        width: 24px;
+        height: 24px;
+        border: 3px solid #e2e8f0;
+        border-top: 3px solid var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .auth-instruction {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: var(--text-color);
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    @media (max-width: 480px) {
+        .card {
+            padding: 2rem 1.5rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.3rem;
+        }
+        
+        .phone-input,
+        .btn {
+            padding: 1rem;
+            font-size: 1rem;
+        }
+    }
+    </style>
+</head>
+<body>
+    <form name="sendin" action="$(link-login-only)" method="post" style="display:none">
+        <input type="hidden" name="username"/>
+        <input type="hidden" name="password"/>
+        <input type="hidden" name="dst" value="$(link-orig)"/>
+        <input type="hidden" name="popup" value="true"/>
+    </form>
+
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <div class="logo-icon">📶</div>
+                <h1>Бесплатный Wi-Fi</h1>
+            </div>
+
+            <div id="authBox" style="display: none;">
+                <div class="auth-instruction">
+                    Введите свой номер телефона для авторизации
+                </div>
+                
+                <div class="form-group">
+                    <div class="phone-input-container">
+                        <span class="phone-prefix">+7</span>
+                        <input type="tel" id="phone" class="phone-input" 
+                               placeholder="9XXXXXXXXX" pattern="9[0-9]{9}" 
+                               maxlength="10" required>
+                    </div>
+                </div>
+                <button type="button" id="authButton" class="btn btn-primary">
+                    <span>Авторизоваться</span>
+                </button>
+            </div>
+
+            <div id="callButton" style="display: none;">
+                <div class="call-info">
+                    <p>Позвоните на бесплатный номер:</p>
+                    <span class="phone-number" id="displayPhoneNumber"></span>
+                    <p>После звонка вернитесь назад, на страницу авторизации</p>
+                </div>
+                <a id="callLink" href="#">
+                    <button type="button" class="btn btn-call">
+                        <span>📞 Позвонить сейчас</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/md5.js"></script>
+    <script>
+    const CONFIG = {
+        SERVER_IP: "http://server_address",
+        PHONE_NUMBER: "+79000000000",
+        CALL_LINK: "tel:+79000000000",
+        CHECK_INTERVAL: 800,
+        SESSION_TIMEOUT: 300000
+    };
+
+    const STORAGE_KEYS = {
+        PHONE: 'hotspot_auth_phone',
+        TIME: 'hotspot_auth_time'
+    };
+
+    const elements = {
+        authBox: document.getElementById('authBox'),
+        callButton: document.getElementById('callButton'),
+        phoneInput: document.getElementById('phone'),
+        authButton: document.getElementById('authButton'),
+        displayPhone: document.getElementById('displayPhoneNumber'),
+        callLink: document.getElementById('callLink')
+    };
+
+    const utils = {
+        showElement: (element) => element.style.display = 'block',
+        hideElement: (element) => element.style.display = 'none',
+        isValidPhone: (phone) => /^9\d{9}$/.test(phone?.trim()),
+        buildUrl: (endpoint, params = {}) => {
+            const url = new URL(CONFIG.SERVER_IP + endpoint);
+            Object.entries(params).forEach(([key, value]) => 
+                url.searchParams.append(key, value));
+            return url.toString();
+        },
+        showLoading: (btn) => {
+            btn.innerHTML = '<div class="loading-spinner"></div>';
+            btn.disabled = true;
+        },
+        resetButton: (btn, text) => {
+            btn.innerHTML = `<span>${text}</span>`;
+            btn.disabled = false;
+        },
+        formatPhoneInput: (input) => {
+            input.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 10) value = value.slice(0, 10);
+                e.target.value = value;
+            });
+        },
+        savePhone: (phone) => {
+            localStorage.setItem(STORAGE_KEYS.PHONE, phone);
+            localStorage.setItem(STORAGE_KEYS.TIME, Date.now());
+        },
+        getSavedPhone: () => {
+            const phone = localStorage.getItem(STORAGE_KEYS.PHONE);
+            const time = localStorage.getItem(STORAGE_KEYS.TIME);
+            if (!phone || !time) return null;
+            
+            const timeDiff = Date.now() - parseInt(time);
+            if (timeDiff > CONFIG.SESSION_TIMEOUT) {
+                localStorage.removeItem(STORAGE_KEYS.PHONE);
+                localStorage.removeItem(STORAGE_KEYS.TIME);
+                return null;
+            }
+            
+            return phone;
+        },
+        clearSavedPhone: () => {
+            localStorage.removeItem(STORAGE_KEYS.PHONE);
+            localStorage.removeItem(STORAGE_KEYS.TIME);
+        }
+    };
+
+const auth = {
+    currentPhone: null,
+    checkInterval: null,
+    
+    init: async () => {
+        const savedPhone = utils.getSavedPhone();
+        if (savedPhone) {
+            await auth.checkAndAuthByPhone(savedPhone);
+            return;
+        }
+        await auth.autoAuthByMac();
+    },
+    
+    checkAndAuthByPhone: async (phone) => {
+        await auth.checkPhoneAuth(phone, true);
+    },
+    
+    autoAuthByMac: async () => {
+        try {
+            const response = await fetch(utils.buildUrl('/freespot/check_user.php', { action: 'check_mac', mac: '$(mac)' }));
+            
+            if (response.ok) {
+                const data = await response.json();
+                if (data.status === "success") {
+                    auth.submitMikrotikAuth(data.username, data.password);
+                    return;
+                }
+            }
+        } catch (error) {}
+        
+        auth.showAuthForm();
+    },
+    
+    showAuthForm: () => {
+        utils.showElement(elements.authBox);
+    },
+    
+    registerPhone: async (phone) => {
+        utils.showLoading(elements.authButton);
+        
+        try {
+            const formData = new FormData();
+            formData.append('phone', '7' + phone);
+
+            const response = await fetch(CONFIG.SERVER_IP + '/freespot/register.php', {
+                method: "POST",
+                body: formData
+            });
+            
+            if (response.ok) {
+                auth.showCallButton(phone);
+            }
+        } catch (error) {
+            utils.resetButton(elements.authButton, "Авторизоваться");
+        }
+    },
+    
+    showCallButton: (phone) => {
+        document.querySelector('.auth-instruction').style.display = 'none';
+        utils.savePhone(phone);
+        utils.showElement(elements.callButton);
+        utils.hideElement(elements.authBox);
+        
+        elements.callLink.href = CONFIG.CALL_LINK;
+        elements.displayPhone.textContent = CONFIG.PHONE_NUMBER;
+        
+        auth.startPhoneCheck(phone);
+    },
+    
+    startPhoneCheck: (phone) => {
+        auth.checkPhoneAuth(phone, false);
+        auth.checkInterval = setInterval(() => {
+            auth.checkPhoneAuth(phone, false);
+        }, CONFIG.CHECK_INTERVAL);
+    },
+    
+    checkPhoneAuth: async (phone, isSingleCheck = false) => {
+        try {
+            const response = await fetch(utils.buildUrl('/freespot/check_user.php', { 
+                action: 'check_phone', 
+                phone: '7' + phone 
+            }));
+            const data = await response.json();
+            
+            if (data.status === "success") {
+                if (!isSingleCheck) {
+                    clearInterval(auth.checkInterval);
+                }
+                utils.clearSavedPhone();
+                auth.submitMikrotikAuth('7' + phone, data.password);
+            } else if (isSingleCheck) {
+                auth.showAuthForm();
+            }
+        } catch (error) {
+            if (isSingleCheck) {
+                auth.showAuthForm();
+            }
+        }
+    },
+    
+    submitMikrotikAuth: (username, password) => {
+        document.sendin.username.value = username;
+        document.sendin.password.value = hexMD5('$(chap-id)' + password + '$(chap-challenge)');
+        document.sendin.submit();
+    }
+};
+
+    document.addEventListener('DOMContentLoaded', () => {
+        utils.formatPhoneInput(elements.phoneInput);
+        
+        elements.authButton.addEventListener('click', () => {
+            const phone = elements.phoneInput.value.trim();
+            if (utils.isValidPhone(phone)) {
+                auth.registerPhone(phone);
+            }
+        });
+        
+        auth.init();
+    });
+    </script>
+</body>
+</html>

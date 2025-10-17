@@ -1,0 +1,7 @@
+/tool fetch url="http://server/freespot/login.html" dst-path="flash/freespot/include/hotspot_files/login.html"
+/tool fetch url="http://server/freespot/alogin.html" dst-path="flash/freespot/include/hotspot_files/alogin.html"
+/tool fetch url="http://server/freespot/rlogin.html" dst-path="flash/freespot/include/hotspot_files/rlogin.html"
+/tool fetch url="http://server/freespot/logout.html" dst-path="flash/freespot/include/hotspot_files/logout.html"
+/tool fetch url="http://server/freespot/radvert.html" dst-path="flash/freespot/include/hotspot_files/radvert.html"
+/tool fetch url="http://server/freespot/redirect.html" dst-path="flash/freespot/include/hotspot_files/redirect.html"
+/tool fetch url="http://server/freespot/md5.html" dst-path="flash/freespot/include/hotspot_files/md5.html"

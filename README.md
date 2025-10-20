@@ -13,7 +13,9 @@
 Загрузите файлы на MikroTik (используйте скрипт mikrotik_fetch.script)  
 Купите SIP-номер и подключите его к Asterisk  
 Измените конфигурацию Asterisk  
-Настройте соединение между MikroTik и сервером FreeRadius  
+Настройте соединение между MikroTik и сервером FreeRadius
+Настройте Mikrotik Hotspot, используя radius  
+Пропишите адрес вашего сервера в Walled Gareden IP list 
 
 
 Install Webserver Apache, PHP, MySQL, Asterisk  
